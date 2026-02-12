@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — Login</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="admin">
+
+<main class="auth">
+  <div class="u-container">
+    <div class="admin-card auth__card">
+      <div class="admin-card__body u-stack">
+        <div class="admin-brand">
+          <span class="admin-brand__mark" aria-hidden="true"></span>
+          <span>Wearly Admin</span>
+        </div>
+
+        <div class="alert alert--warning" style="background:rgba(180,83,9,.12); border-color:rgba(180,83,9,.35); color:#ffd9a6;">
+          Admins only — unauthorized access prohibited. (UI text)
+        </div>
+
+        <div>
+          <label class="label" style="color:rgba(232,236,255,.8);" for="a-email">Email</label>
+          <input class="admin-input" id="a-email" type="email" placeholder="admin@company.com" />
+        </div>
+
+        <div>
+          <label class="label" style="color:rgba(232,236,255,.8);" for="a-pass">Password</label>
+          <input class="admin-input" id="a-pass" type="password" placeholder="••••••••" />
+        </div>
+
+        <button class="admin-btn admin-btn--accent" type="button">Login</button>
+
+        <div class="u-between u-wrap">
+          <a class="admin-muted" href="index.html">← Back to store</a>
+          <a class="admin-muted" href="admin-dashboard.html">Go to dashboard (UI)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+  <script src="../js/app.js"></script>
+
+  <script src="../js/app.js"></script>
+  <script src="../js/admin/admin-login.js"></script>
+</body>
+</html>

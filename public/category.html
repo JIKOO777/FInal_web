@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wearly — Category</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="navbar">
+  <div class="u-container navbar__inner">
+    <a class="brand" href="index.html" aria-label="Wearly home">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__name">Wearly</span>
+    </a>
+
+    <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Toggle navigation" />
+    <label class="hamburger" for="nav-toggle" aria-hidden="true"><span></span></label>
+
+    <nav class="navbar__links" aria-label="Primary">
+      <a class="navlink" href="index.html">Home</a>
+      <a class="navlink" href="catalog.html">Catalog</a>
+
+      <div class="drop">
+        <a class="navlink drop__btn navlink--active" href="category.html" aria-haspopup="true" aria-expanded="false">
+          Categories
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <div class="drop__menu" role="menu">
+          <a class="drop__item" href="category.html?category=women">Women <span class="u-muted">→</span></a>
+          <a class="drop__item" href="category.html?category=men">Men <span class="u-muted">→</span></a>
+          <a class="drop__item" href="category.html?category=accessories">Accessories <span class="u-muted">→</span></a>
+          <a class="drop__item" href="category.html?category=shoes">Shoes <span class="u-muted">→</span></a>
+        </div>
+      </div>
+
+      <a class="navlink" href="likes.html" data-nav-likes>Likes</a>
+    </nav>
+
+    <div class="navbar__actions">
+      <a class="btn btn--outline btn--sm" href="login.html" data-nav-login>Login</a>
+      <a class="btn btn--primary btn--sm" href="profile.html" data-nav-profile>Profile</a>
+      <button class="btn btn--outline btn--sm" type="button" data-nav-logout style="display:none;">Logout</button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="u-container">
+
+    <div class="breadcrumb u-mb-6">
+      <a href="index.html">Home</a>
+      <span class="breadcrumb__sep">/</span>
+      <a href="catalog.html">Catalog</a>
+      <span class="breadcrumb__sep">/</span>
+      <span id="catBreadcrumb">Category</span>
+    </div>
+
+    <div class="u-between u-wrap u-mb-6">
+      <div>
+        <h1 class="page-title" id="catTitle">Category</h1>
+        <p class="subtle">Browse items by category.</p>
+      </div>
+      <span class="badge badge--solid" id="catBadge">Category</span>
+    </div>
+
+    <section class="catalog">
+      <aside class="panel">
+        <div class="card">
+          <div class="card__header"><strong>Categories</strong></div>
+          <div class="card__body">
+            <div class="u-stack" id="categoryList">
+              <!-- filled by JS -->
+            </div>
+          </div>
+        </div>
+
+        <div class="card u-mt-6">
+          <div class="card__header"><strong>Search in category</strong></div>
+          <div class="card__body">
+            <div class="u-stack">
+              <input class="input" id="catSearch" type="search" placeholder="Search (title/description)..." />
+              <button class="btn btn--primary" id="catSearchBtn" type="button">Search</button>
+              <p class="helper">Search uses backend: /api/products?q=...&category=...</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <section>
+        <div class="toolbar">
+          <div class="u-row u-wrap">
+            <span class="badge" id="catCount">0 items</span>
+          </div>
+
+          <div class="u-row u-wrap">
+            <label class="u-muted" for="sort">Sort</label>
+            <select class="input input--sm" id="sort" aria-label="Sort products">
+              <option value="newest">Newest</option>
+              <option value="price_asc">Price: Low to High</option>
+              <option value="price_desc">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid--4" id="productsGrid"></div>
+      </section>
+    </section>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="u-container footer__inner">
+    <div>
+      <p class="footer__title">Wearly</p>
+      <p class="footer__text">Minimal modern clothing store UI.</p>
+    </div>
+    <div>
+      <p class="footer__title">Shop</p>
+      <div class="footer__links">
+        <a href="catalog.html">Catalog</a>
+        <a href="category.html">Categories</a>
+        <a href="likes.html">Likes</a>
+        <a href="product.html">Product</a>
+      </div>
+    </div>
+    <div>
+      <p class="footer__title">Account</p>
+      <div class="footer__links">
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+        <a href="profile.html">Profile</a>
+        <a href="admin-login.html">Admin</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div class="u-container u-between">
+      <span>© Wearly</span>
+      <span class="u-muted">Backend connected</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/category.js"></script>
+</body>
+</html>

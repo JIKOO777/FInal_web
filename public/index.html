@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wearly — Home</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="navbar">
+  <div class="u-container navbar__inner">
+    <a class="brand" href="index.html" aria-label="Wearly home">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__name">Wearly</span>
+    </a>
+
+    <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Toggle navigation" />
+    <label class="hamburger" for="nav-toggle" aria-hidden="true"><span></span></label>
+
+    <nav class="navbar__links" aria-label="Primary">
+      <a class="navlink navlink--active" href="index.html">Home</a>
+      <a class="navlink" href="catalog.html">Catalog</a>
+
+      <div class="drop">
+        <a class="navlink drop__btn" href="category.html" aria-haspopup="true" aria-expanded="false">
+          Categories
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+        <div class="drop__menu" role="menu" aria-label="Categories menu">
+          <a class="drop__item" href="category.html?category=women">Women <span class="u-muted">→</span></a>
+          <a class="drop__item" href="category.html?category=men">Men <span class="u-muted">→</span></a>
+          <a class="drop__item" href="category.html?category=accessories">Accessories <span class="u-muted">→</span></a>
+          <a class="drop__item" href="category.html?category=shoes">Shoes <span class="u-muted">→</span></a>
+        </div>
+      </div>
+
+      <a class="navlink" href="likes.html" data-nav-likes>Likes</a>
+    </nav>
+
+    <div class="navbar__actions">
+      <a class="btn btn--outline btn--sm" href="login.html" data-nav-login>Login</a>
+      <a class="btn btn--primary btn--sm" href="profile.html" data-nav-profile>Profile</a>
+      <button class="btn btn--outline btn--sm" type="button" data-nav-logout style="display:none;">Logout</button>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="u-container">
+    <section class="hero">
+      <div class="hero__grid">
+        <div>
+          <span class="hero__kicker">New season • Minimal essentials</span>
+          <h1 class="hero__title">Modern clothing for everyday life.</h1>
+          <p class="hero__text">
+            Clean fits, premium basics, and curated drops — designed for a calm, confident wardrobe.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary btn--lg" href="catalog.html">
+              Shop catalog
+              <span class="btn__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h12M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+            <a class="btn btn--outline btn--lg" href="category.html">Browse categories</a>
+          </div>
+
+          <div class="u-row u-wrap u-gap-md u-mt-6">
+            <span class="badge badge--success">Free returns 14 days</span>
+            <span class="badge">Fast delivery 2–4 days</span>
+            <span class="badge">Secure checkout</span>
+          </div>
+        </div>
+
+        <div class="hero__mock" aria-label="Product preview mock">
+          <div class="hero__mock-grid">
+            <div class="mock-card">
+              <div class="mock-card__img"></div>
+              <div class="mock-card__line"></div>
+              <div class="mock-card__line"></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-card__img"></div>
+              <div class="mock-card__line"></div>
+              <div class="mock-card__line"></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-card__img"></div>
+              <div class="mock-card__line"></div>
+              <div class="mock-card__line"></div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-card__img"></div>
+              <div class="mock-card__line"></div>
+              <div class="mock-card__line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__head">
+        <div>
+          <h2 class="section__title">Featured products</h2>
+          <p class="section__hint">Most loved picks this week.</p>
+        </div>
+        <a class="btn btn--outline" href="catalog.html">View all</a>
+      </div>
+
+      <div class="grid grid--4" id="featuredGrid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section__head">
+        <div>
+          <h2 class="section__title">New arrivals</h2>
+          <p class="section__hint">Fresh drops just landed.</p>
+        </div>
+        <a class="btn btn--outline" href="catalog.html">Explore new</a>
+      </div>
+
+      <div class="grid grid--3" id="arrivalsGrid"></div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="u-container footer__inner">
+    <div>
+      <p class="footer__title">Wearly</p>
+      <p class="footer__text">Minimal modern clothing store UI — production-ready frontend layout (UI only).</p>
+    </div>
+    <div>
+      <p class="footer__title">Shop</p>
+      <div class="footer__links">
+        <a href="catalog.html">Catalog</a>
+        <a href="category.html">Categories</a>
+        <a href="likes.html">Likes</a>
+        <a href="product.html">Product</a>
+      </div>
+    </div>
+    <div>
+      <p class="footer__title">Account</p>
+      <div class="footer__links">
+<a href="login.html" data-auth="login">Login</a>
+<a href="register.html" data-auth="register">Register</a>
+<a href="profile.html" data-auth="profile">Profile</a>
+<button data-auth="logout" onclick="auth.logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div class="u-container u-between">
+      <span>© Wearly UI</span>
+      <span class="u-muted">No backend • No tracking</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/auth.js"></script>
+
+
+  <script src="js/app.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>

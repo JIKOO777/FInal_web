@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — Categories</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="admin">
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="admin-brand"><span class="admin-brand__mark"></span><span>Wearly Admin</span></div>
+    <nav class="admin-nav" aria-label="Admin navigation">
+      <a class="admin-link" href="admin-dashboard.html">Dashboard <span>→</span></a>
+      <a class="admin-link" href="admin-products.html">Products <span>→</span></a>
+      <a class="admin-link admin-link--active" href="admin-categories.html">Categories <span>→</span></a>
+      <a class="admin-link" href="admin-login.html">Logout <span>↗</span></a>
+    </nav>
+  </aside>
+
+  <section class="admin-content">
+    <header class="admin-topbar">
+      <h1 class="admin-topbar__title">Categories</h1>
+      <div class="u-row u-wrap"><span class="admin-pill">Admin: Alex</span><a class="admin-btn admin-btn--ghost" href="admin-login.html">Logout</a></div>
+    </header>
+
+    <main class="admin-main">
+      <div class="u-stack">
+        <div class="admin-card">
+          <div class="admin-card__body u-between u-wrap">
+            <input class="admin-input" type="text" placeholder="Search categories..." style="min-width:260px;" />
+            <a class="admin-btn admin-btn--accent" href="admin-category-form.html">+ Add Category</a>
+          </div>
+        </div>
+
+        <table class="admin-table" aria-label="Categories table">
+          <thead><tr><th>Name</th><th style="width:180px;">Slug</th><th style="width:130px;">Products</th><th style="width:190px;">Actions</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:950;">Women</td><td class="admin-muted">women</td><td><span class="admin-pill">52</span></td><td><a class="admin-btn" href="admin-category-form.html">Edit</a> <button class="admin-btn" type="button">Delete</button></td></tr>
+            <tr><td style="font-weight:950;">Men</td><td class="admin-muted">men</td><td><span class="admin-pill">44</span></td><td><a class="admin-btn" href="admin-category-form.html">Edit</a> <button class="admin-btn" type="button">Delete</button></td></tr>
+            <tr><td style="font-weight:950;">Accessories</td><td class="admin-muted">accessories</td><td><span class="admin-pill">22</span></td><td><a class="admin-btn" href="admin-category-form.html">Edit</a> <button class="admin-btn" type="button">Delete</button></td></tr>
+            <tr><td style="font-weight:950;">Shoes</td><td class="admin-muted">shoes</td><td><span class="admin-pill">10</span></td><td><a class="admin-btn" href="admin-category-form.html">Edit</a> <button class="admin-btn" type="button">Delete</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </section>
+</div>
+
+
+  <script src="../js/app.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/admin/admin-categories.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — Product Form</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body class="admin">
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="admin-brand"><span class="admin-brand__mark"></span><span>Wearly Admin</span></div>
+    <nav class="admin-nav" aria-label="Admin navigation">
+      <a class="admin-link" href="admin-dashboard.html">Dashboard <span>→</span></a>
+      <a class="admin-link admin-link--active" href="admin-products.html">Products <span>→</span></a>
+      <a class="admin-link" href="admin-categories.html">Categories <span>→</span></a>
+      <a class="admin-link" href="admin-login.html">Logout <span>↗</span></a>
+    </nav>
+  </aside>
+
+  <section class="admin-content">
+    <header class="admin-topbar">
+      <h1 class="admin-topbar__title">Product form</h1>
+      <div class="u-row u-wrap"><span class="admin-pill">Admin: Alex</span><a class="admin-btn admin-btn--ghost" href="admin-login.html">Logout</a></div>
+    </header>
+
+    <main class="admin-main">
+      <div class="u-container" style="width:min(980px, 100%); margin-inline:0;">
+        <div class="admin-card">
+          <div class="admin-card__body u-stack">
+            <div class="u-between u-wrap">
+              <div><div style="font-weight:950; font-size:18px;">Create / Edit product</div><div class="admin-muted">UI-only form elements.</div></div>
+              <span class="admin-pill">Draft</span>
+            </div>
+
+            <form class="u-stack" action="#" method="post">
+              <div class="grid grid--3">
+                <div><label class="label" style="color:rgba(232,236,255,.8);" for="p-name">Name</label><input class="admin-input" id="p-name" type="text" placeholder="Essential Hoodie" /></div>
+                <div><label class="label" style="color:rgba(232,236,255,.8);" for="p-price">Price</label><input class="admin-input" id="p-price" type="text" placeholder="64" /></div>
+                <div><label class="label" style="color:rgba(232,236,255,.8);" for="p-stock">Stock</label><input class="admin-input" id="p-stock" type="number" placeholder="84" /></div>
+              </div>
+
+              <div><label class="label" style="color:rgba(232,236,255,.8);" for="p-desc">Description</label><textarea class="admin-textarea" id="p-desc" rows="4" placeholder="Short description..."></textarea></div>
+
+              <div class="grid grid--3">
+                <div><label class="label" style="color:rgba(232,236,255,.8);" for="p-cat">Category</label><select class="admin-select" id="p-cat"><option>Women</option><option>Men</option><option>Accessories</option><option>Shoes</option></select></div>
+                <div><label class="label" style="color:rgba(232,236,255,.8);">Sizes</label><div class="u-row u-wrap" style="gap:10px;"><label class="admin-pill"><input type="checkbox" /> S</label><label class="admin-pill"><input type="checkbox" /> M</label><label class="admin-pill"><input type="checkbox" /> L</label><label class="admin-pill"><input type="checkbox" /> XL</label></div></div>
+                <div><label class="label" style="color:rgba(232,236,255,.8);">Featured</label><label class="admin-pill"><input type="checkbox" /> Mark as featured</label></div>
+              </div>
+
+              <div><label class="label" style="color:rgba(232,236,255,.8);">Colors</label><div class="u-row u-wrap" style="gap:10px;"><span class="admin-pill">Black</span><span class="admin-pill">White</span><span class="admin-pill">Navy</span><span class="admin-pill">Sand</span><select class="admin-select" style="min-width:220px;"><option>Add color…</option><option>Olive</option><option>Stone</option><option>Burgundy</option></select></div></div>
+
+              <div>
+                <label class="label" style="color:rgba(232,236,255,.8);" for="p-img-url">Image URL</label>
+                <input class="admin-input" id="p-img-url" type="text" placeholder="https://... или data:image..." />                <div class="admin-muted" style="margin-top:8px;">Paste a direct image link. You can add multiple URLs separated by comma or new line.</div>
+                <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                  <img id="p-img-preview" alt="Preview" style="width:96px;height:96px;object-fit:cover;border-radius:14px;display:none;border:1px solid rgba(232,236,255,.12);" />
+                </div>
+              </div>
+
+              <div class="u-between u-wrap">
+                <div class="admin-muted">Save/Cancel are UI-only actions.</div>
+                <div class="u-row u-wrap"><a class="admin-btn" href="admin-products.html">Cancel</a><button class="admin-btn admin-btn--accent" type="button">Save product</button></div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </main>
+  </section>
+</div>
+
+
+  <script src="../js/app.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/admin/admin-product-form.js"></script>
+</body>
+</html>
