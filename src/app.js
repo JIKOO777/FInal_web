@@ -10,6 +10,7 @@ import orderRoutes from "./routes/order.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import likeRoutes from "./routes/like.routes.js";
 import { notFound, errorHandler } from "./middlewares/error.middleware.js";
+import { HTTP_STATUS } from "./constants/httpStatus.js";
 
 const app = express();
 
@@ -26,8 +27,11 @@ app.use(express.static(path.join(__dirname, "../public")));
 
 // test route
 app.get("/api/health", (req, res) => {
-  res.json({ status: "OK" });
+  res.status(HTTP_STATUS.OK).json({ status: "OK" });
 });
+
+
+
 
 // **auth routes**
 app.use("/api/auth", authRoutes);

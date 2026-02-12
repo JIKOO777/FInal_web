@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import { HTTP_STATUS } from "../constants/httpStatus.js";
 
 export const getUsers = async (req, res, next) => {
   try {
@@ -17,7 +18,7 @@ export const getUsers = async (req, res, next) => {
       User.countDocuments(filter)
     ]);
 
-    res.json({ items, page, limit, total, pages: Math.ceil(total / limit) });
+    res.status(HTTP_STATUS.OK).json({ items, page, limit, total, pages: Math.ceil(total / limit) });
   } catch (err) {
     next(err);
   }
@@ -26,14 +27,14 @@ export const getUsers = async (req, res, next) => {
 export const setUserRole = async (req, res, next) => {
   try {
     const { role } = req.body;
-    if (!["USER", "ADMIN"].includes(role)) return res.status(400).json({ message: "Invalid role" });
+    if (!["USER", "ADMIN"].includes(role)) return res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "Invalid role" });
 
     const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).json({ message: "User not found" });
+    if (!user) return res.status(HTTP_STATUS.NOT_FOUND).json({ message: "User not found" });
 
     user.role = role;
     await user.save();
-    res.json({ id: user._id, name: user.name, email: user.email, role: user.role });
+    res.status(HTTP_STATUS.OK).json({ id: user._id, name: user.name, email: user.email, role: user.role });
   } catch (err) {
     next(err);
   }

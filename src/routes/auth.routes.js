@@ -1,22 +1,20 @@
-// src/routes/auth.routes.js
 import express from "express";
-import { register, login, logout } from "../controllers/auth.controller.js";
+import { register, login, logout, getProfile, updateProfile } from "../controllers/auth.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
+import { HTTP_STATUS } from "../constants/httpStatus.js";
 
 const router = express.Router();
 
-// регистрация
 router.post("/register", register);
-
-// вход
 router.post("/login", login);
-
-// выход (JWT) — клиент удаляет token
 router.post("/logout", authMiddleware, logout);
+router.get("/profile", authMiddleware, getProfile);
+router.put("/profile", authMiddleware, updateProfile);
 
-// пример защищённого маршрута
-router.get("/profile", authMiddleware, (req, res) => {
-  res.json({ user: req.user });
-});
+// 405 Method Not Allowed for known endpoints
+router.all("/register", (req, res) => res.status(HTTP_STATUS.METHOD_NOT_ALLOWED).json({ message: "Method Not Allowed" }));
+router.all("/login", (req, res) => res.status(HTTP_STATUS.METHOD_NOT_ALLOWED).json({ message: "Method Not Allowed" }));
+router.all("/logout", (req, res) => res.status(HTTP_STATUS.METHOD_NOT_ALLOWED).json({ message: "Method Not Allowed" }));
+router.all("/profile", (req, res) => res.status(HTTP_STATUS.METHOD_NOT_ALLOWED).json({ message: "Method Not Allowed" }));
 
 export default router;

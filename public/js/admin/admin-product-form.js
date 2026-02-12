@@ -91,12 +91,28 @@ const setPreview = (url) => {
   }
 
   // load product if edit
-  if (id) {
+if (id) {
     const product = await window.app.api(`/api/products/${id}`);
     if (titleEl) titleEl.value = product.title || "";
     if (priceEl) priceEl.value = product.price ?? "";
     if (descEl) descEl.value = product.description || "";
     if (catEl) catEl.value = product.category?._id || product.category || "";
+    
+    // --- ИСПРАВЛЕНИЕ ДЛЯ РАЗМЕРОВ ---
+if (product.sizes && Array.isArray(product.sizes)) {
+  const sizeCheckboxes = document.querySelectorAll('input[name="size"]');
+  sizeCheckboxes.forEach(cb => {
+    // Берем текст из родительского label и очищаем от лишних пробелов
+    const sizeText = cb.parentElement.textContent.trim(); 
+    
+    if (product.sizes.includes(sizeText)) {
+      cb.checked = true;
+    }
+  });
+}
+
+    // -------------------------------
+
     if (imgEl) imgEl.value = (product.images || []).join(", ");
     setPreview((product.images && product.images[0]) ? product.images[0] : "");
   }
@@ -107,12 +123,18 @@ const setPreview = (url) => {
   });
 
   saveBtn?.addEventListener("click", async () => {
+const selectedSizes = Array.from(document.querySelectorAll('input[type="checkbox"]:checked'))
+      .map(cb => cb.parentElement.textContent.trim())
+      // Фильтруем, чтобы не захватить чекбокс "Featured", если он тоже чекбокс
+      .filter(val => ["S", "M", "L", "XL"].includes(val));
+
     const body = {
       title: titleEl?.value?.trim(),
       price: Number(priceEl?.value || 0),
       description: descEl?.value?.trim(),
       category: catEl?.value,
-      images: parseImages(imgEl?.value)
+      images: parseImages(imgEl?.value),
+      sizes: selectedSizes // Добавляем массив размеров в тело запроса
     };
 
     if (!body.title || !body.category || Number.isNaN(body.price)) {

@@ -84,16 +84,27 @@
                 </select>
               </div>
 
-              <div class="filter__group">
-                <span class="label">Size</span>
-                <div class="chip-row">
-                  <span class="chip chip--active">S</span>
+            <div class="filter__group">
+              <span class="label">Size</span>
+              <div class="chip-row" id="f-size-container">
+                <label class="chip-checkbox">
+                  <input type="checkbox" name="size" value="S">
+                  <span class="chip">S</span>
+                </label>
+                <label class="chip-checkbox">
+                  <input type="checkbox" name="size" value="M">
                   <span class="chip">M</span>
+                </label>
+                <label class="chip-checkbox">
+                  <input type="checkbox" name="size" value="L">
                   <span class="chip">L</span>
+                </label>
+                <label class="chip-checkbox">
+                  <input type="checkbox" name="size" value="XL">
                   <span class="chip">XL</span>
-                </div>
-                <p class="helper">UI only — selection is not functional.</p>
+                </label>
               </div>
+            </div>
 
               <div class="filter__group">
                 <span class="label">Color</span>

@@ -1,5 +1,6 @@
 import Product from "../models/Product.js";
 import Category from "../models/Category.js";
+import { HTTP_STATUS } from "../constants/httpStatus.js";
 
 export const getProducts = async (req, res, next) => {
   try {
@@ -45,7 +46,7 @@ export const getProducts = async (req, res, next) => {
       Product.countDocuments(filter)
     ]);
 
-    res.json({ items, page, limit, total, pages: Math.ceil(total / limit) });
+    res.status(HTTP_STATUS.OK).json({ items, page, limit, total, pages: Math.ceil(total / limit) });
   } catch (err) {
     next(err);
   }
@@ -54,8 +55,8 @@ export const getProducts = async (req, res, next) => {
 export const getProductById = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id).populate("category");
-    if (!product) return res.status(404).json({ message: "Product not found" });
-    res.json(product);
+    if (!product) return res.status(HTTP_STATUS.NOT_FOUND).json({ message: "Product not found" });
+    res.status(HTTP_STATUS.OK).json(product);
   } catch (err) {
     next(err);
   }
@@ -64,12 +65,12 @@ export const getProductById = async (req, res, next) => {
 export const createProduct = async (req, res, next) => {
   try {
     const { title, price, description, sizes, colors, images, category, isActive } = req.body;
-    if (!title) return res.status(400).json({ message: "title is required" });
-    if (price === undefined) return res.status(400).json({ message: "price is required" });
-    if (!category) return res.status(400).json({ message: "category is required" });
+    if (!title) return res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "title is required" });
+    if (price === undefined) return res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "price is required" });
+    if (!category) return res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "category is required" });
 
     const cat = await Category.findById(category);
-    if (!cat) return res.status(400).json({ message: "Invalid category" });
+    if (!cat) return res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "Invalid category" });
 
     const product = await Product.create({
       title,
@@ -82,7 +83,7 @@ export const createProduct = async (req, res, next) => {
       isActive
     });
 
-    res.status(201).json(product);
+    res.status(HTTP_STATUS.CREATED).json(product);
   } catch (err) {
     next(err);
   }
@@ -91,7 +92,7 @@ export const createProduct = async (req, res, next) => {
 export const updateProduct = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id);
-    if (!product) return res.status(404).json({ message: "Product not found" });
+    if (!product) return res.status(HTTP_STATUS.NOT_FOUND).json({ message: "Product not found" });
 
     const { title, price, description, sizes, colors, images, category, isActive } = req.body;
 
@@ -102,7 +103,7 @@ export const updateProduct = async (req, res, next) => {
 
     if (category !== undefined) {
       const cat = await Category.findById(category);
-      if (!cat) return res.status(400).json({ message: "Invalid category" });
+      if (!cat) return res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "Invalid category" });
       product.category = category;
     }
 
@@ -111,7 +112,7 @@ export const updateProduct = async (req, res, next) => {
     if (images !== undefined) product.images = Array.isArray(images) ? images : images ? [images] : [];
 
     await product.save();
-    res.json(product);
+    res.status(HTTP_STATUS.OK).json(product);
   } catch (err) {
     next(err);
   }
@@ -120,9 +121,9 @@ export const updateProduct = async (req, res, next) => {
 export const deleteProduct = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id);
-    if (!product) return res.status(404).json({ message: "Product not found" });
+    if (!product) return res.status(HTTP_STATUS.NOT_FOUND).json({ message: "Product not found" });
     await product.deleteOne();
-    res.json({ message: "Product deleted" });
+    res.status(HTTP_STATUS.OK).json({ message: "Product deleted" });
   } catch (err) {
     next(err);
   }

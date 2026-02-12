@@ -1,4 +1,5 @@
 import Category from "../models/Category.js";
+import { HTTP_STATUS } from "../constants/httpStatus.js";
 
 const slugify = (s) =>
   String(s)
@@ -22,7 +23,7 @@ export const getCategories = async (req, res, next) => {
       Category.countDocuments(filter)
     ]);
 
-    res.json({ items, page, limit, total, pages: Math.ceil(total / limit) });
+    res.status(HTTP_STATUS.OK).json({ items, page, limit, total, pages: Math.ceil(total / limit) });
   } catch (err) {
     next(err);
   }
@@ -31,8 +32,8 @@ export const getCategories = async (req, res, next) => {
 export const getCategoryById = async (req, res, next) => {
   try {
     const category = await Category.findById(req.params.id);
-    if (!category) return res.status(404).json({ message: "Category not found" });
-    res.json(category);
+    if (!category) return res.status(HTTP_STATUS.NOT_FOUND).json({ message: "Category not found" });
+    res.status(HTTP_STATUS.OK).json(category);
   } catch (err) {
     next(err);
   }
@@ -41,14 +42,14 @@ export const getCategoryById = async (req, res, next) => {
 export const createCategory = async (req, res, next) => {
   try {
     const { name, image, isActive } = req.body;
-    if (!name) return res.status(400).json({ message: "name is required" });
+    if (!name) return res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "name is required" });
 
     const slug = slugify(name);
     const exists = await Category.findOne({ slug });
-    if (exists) return res.status(400).json({ message: "Category already exists" });
+    if (exists) return res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "Category already exists" });
 
     const category = await Category.create({ name, slug, image, isActive });
-    res.status(201).json(category);
+    res.status(HTTP_STATUS.CREATED).json(category);
   } catch (err) {
     next(err);
   }
@@ -59,7 +60,7 @@ export const updateCategory = async (req, res, next) => {
     const { name, image, isActive } = req.body;
 
     const category = await Category.findById(req.params.id);
-    if (!category) return res.status(404).json({ message: "Category not found" });
+    if (!category) return res.status(HTTP_STATUS.NOT_FOUND).json({ message: "Category not found" });
 
     if (name) {
       category.name = name;
@@ -69,7 +70,7 @@ export const updateCategory = async (req, res, next) => {
     if (isActive !== undefined) category.isActive = isActive;
 
     await category.save();
-    res.json(category);
+    res.status(HTTP_STATUS.OK).json(category);
   } catch (err) {
     next(err);
   }
@@ -78,9 +79,9 @@ export const updateCategory = async (req, res, next) => {
 export const deleteCategory = async (req, res, next) => {
   try {
     const category = await Category.findById(req.params.id);
-    if (!category) return res.status(404).json({ message: "Category not found" });
+    if (!category) return res.status(HTTP_STATUS.NOT_FOUND).json({ message: "Category not found" });
     await category.deleteOne();
-    res.json({ message: "Category deleted" });
+    res.status(HTTP_STATUS.OK).json({ message: "Category deleted" });
   } catch (err) {
     next(err);
   }

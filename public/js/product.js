@@ -11,6 +11,16 @@ function normalizeImageUrl(url) {
   return raw;
 }
 
+window.removeFromCart = (index) => {
+  const cart = JSON.parse(localStorage.getItem('wearly_cart') || '[]');
+  cart.splice(index, 1);
+  localStorage.setItem('wearly_cart', JSON.stringify(cart));
+  
+  // Чтобы обновить экран, находим кнопку корзины и "кликаем" по ней программно
+  const cartBtn = document.querySelector('[data-tab="cart"]');
+  if (cartBtn) cartBtn.click();
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
   const root = document.getElementById("productRoot");
   const breadcrumbName = document.getElementById("bc-product-name");
@@ -181,9 +191,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // 9. КНОПКА ДОБАВЛЕНИЯ
-    addToBagBtn?.addEventListener("click", () => {
-      alert(`Success! Added to bag: ${product.title} (Size: ${selectedSize})`);
-    });
+  addToBagBtn?.addEventListener("click", () => {
+    // Формируем объект товара для корзины
+    const cartItem = {
+      id: product._id,
+      title: product.title,
+      price: product.price,
+      size: selectedSize,
+      image: (product.images && product.images.length > 0) ? product.images[0] : null,
+      addedAt: new Date().getTime()
+    };
+
+    // Получаем текущую корзину из localStorage
+    const currentCart = JSON.parse(localStorage.getItem('wearly_cart') || '[]');
+    
+    // Добавляем новый товар
+    currentCart.push(cartItem);
+    
+    // Сохраняем обратно
+    localStorage.setItem('wearly_cart', JSON.stringify(currentCart));
+
+    alert(`Success! Added to bag: ${product.title} (Size: ${selectedSize})`);
+    
+    // Опционально: можно сразу перенаправить в профиль, чтобы увидеть результат
+    // window.location.href = 'profile.html'; 
+  });
 
   } catch (err) {
     console.error("Product Page Error:", err);

@@ -1,6 +1,7 @@
 import Order from "../models/Order.js";
 import User from "../models/User.js";
 import Product from "../models/Product.js";
+import { HTTP_STATUS } from "../constants/httpStatus.js";
 
 const calcTotal = (items) => items.reduce((sum, it) => sum + (it.price || 0) * (it.quantity || 0), 0);
 
@@ -8,7 +9,7 @@ export const createOrderFromCart = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id).populate("cart.items.product");
     const cartItems = user?.cart?.items || [];
-    if (cartItems.length === 0) return res.status(400).json({ message: "Cart is empty" });
+    if (cartItems.length === 0) return res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "Cart is empty" });
 
     const items = cartItems.map((ci) => ({
       product: ci.product._id,
@@ -35,7 +36,7 @@ export const createOrderFromCart = async (req, res, next) => {
       .populate("user", "name email role")
       .populate("items.product");
 
-    res.status(201).json(populated);
+    res.status(HTTP_STATUS.CREATED).json(populated);
   } catch (err) {
     next(err);
   }
@@ -56,7 +57,7 @@ export const getMyOrders = async (req, res, next) => {
       Order.countDocuments({ user: req.user._id })
     ]);
 
-    res.json({ items, page, limit, total, pages: Math.ceil(total / limit) });
+    res.status(HTTP_STATUS.OK).json({ items, page, limit, total, pages: Math.ceil(total / limit) });
   } catch (err) {
     next(err);
   }
@@ -65,14 +66,14 @@ export const getMyOrders = async (req, res, next) => {
 export const getOrderById = async (req, res, next) => {
   try {
     const order = await Order.findById(req.params.id).populate("items.product").populate("user", "name email role");
-    if (!order) return res.status(404).json({ message: "Order not found" });
+    if (!order) return res.status(HTTP_STATUS.NOT_FOUND).json({ message: "Order not found" });
 
     // owner access: пользователь может видеть только свои заказы
     if (req.user.role !== "ADMIN" && String(order.user?._id) !== String(req.user._id)) {
-      return res.status(403).json({ message: "Forbidden" });
+      return res.status(HTTP_STATUS.FORBIDDEN).json({ message: "Forbidden" });
     }
 
-    res.json(order);
+    res.status(HTTP_STATUS.OK).json(order);
   } catch (err) {
     next(err);
   }
@@ -97,7 +98,7 @@ export const getAllOrders = async (req, res, next) => {
       Order.countDocuments(filter)
     ]);
 
-    res.json({ items, page, limit, total, pages: Math.ceil(total / limit) });
+    res.status(HTTP_STATUS.OK).json({ items, page, limit, total, pages: Math.ceil(total / limit) });
   } catch (err) {
     next(err);
   }
@@ -107,10 +108,10 @@ export const updateOrderStatus = async (req, res, next) => {
   try {
     const { status } = req.body;
     const allowed = ["NEW", "PAID", "SHIPPED", "CANCELLED"];
-    if (!allowed.includes(status)) return res.status(400).json({ message: "Invalid status" });
+    if (!allowed.includes(status)) return res.status(HTTP_STATUS.BAD_REQUEST).json({ message: "Invalid status" });
 
     const order = await Order.findById(req.params.id);
-    if (!order) return res.status(404).json({ message: "Order not found" });
+    if (!order) return res.status(HTTP_STATUS.NOT_FOUND).json({ message: "Order not found" });
 
     order.status = status;
     await order.save();
@@ -119,7 +120,7 @@ export const updateOrderStatus = async (req, res, next) => {
       .populate("items.product")
       .populate("user", "name email role");
 
-    res.json(populated);
+    res.status(HTTP_STATUS.OK).json(populated);
   } catch (err) {
     next(err);
   }
