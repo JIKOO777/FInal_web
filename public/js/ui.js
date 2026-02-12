@@ -63,7 +63,7 @@
           </div>
           <div class="product-card__actions">
             <a class="btn btn--primary btn--sm" href="product.html?id=${escapeHtml(product._id)}">View</a>
-            <button class="btn btn--outline btn--sm" type="button" data-add-cart>Add to cart</button>
+
           </div>
         </div>
       </article>
